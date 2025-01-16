@@ -1,0 +1,67 @@
+@startuml
+skinparam classAttributeIconSize 0
+class Program {
+    +main(args: String[]): void
+}
+
+class GestioneGioco {
+    -caso: caso
+    -risolto: boolean
+    -indiziRaccolti: ArrayList<Indizio>
+    +GestioneGioco(caso: Caso)
+    +avviaGioco(): void
+    -esploraLuogo(scanner: Scanner): void
+    -interrogaSospettato(scanner: Scanner): void
+    -analizzaIndizi(): void
+    +concludeCaso(scanner: Scanner): boolean
+}
+
+class Caso {
+    -titolo: String
+    -descrizione: String
+    -sospettati: ArrayList<Sospettato>
+    -indizi: ArrayList<Indizio>
+    +Caso(titolo: String, descrizione: String, sospettati: ArrayList<Sospettato>, indizi: ArrayList<Indizio>)
+    +getTitolo(): String
+    +getDescrizione(): String
+    +getSospettati(): ArrayList<Sospettato>
+    +getIndizi(): ArrayList<Indizio>
+    +setTitolo(titolo: String): void
+    +setDescrizione(descrizione: String): void
+    +setSospettati(sospettati: ArrayList<Sospettato>): void
+    +setIndizi(indizi: ArrayList<Indizio>): void
+}
+
+class Sospettato {
+    -nome: String
+    -alibi: String
+    -colpevole: boolean
+    +Sospettato(nome: String, alibi: String, colpevole: boolean)
+    +getNome(): String
+    +getAlibi(): String
+    +isColpevole(): boolean
+    +setNome(nome: String): void
+    +setAlibi(alibi: String): void
+    +setColpevole(colpevole: boolean): void
+    +equals(o: Object): boolean
+    +hashCode(): int
+}
+
+class Indizio {
+    -descrizione: String
+    -importante: boolean
+    -aiuto: String
+    +Indizio(descrizione: String, rilevante: boolean, aiuto: String)
+    +getDescrizione(): String
+    +isImportante(): boolean
+    +getAiuto(): String
+    +setDescrizione(descrizione: String): void
+    +setImportante(importante: boolean): void
+    +setAiuto(aiuto: String): void
+}
+
+Program "1" -- "1" GestioneGioco
+GestioneGioco "1"*--“1" Caso
+Caso "1" o-- "*" Sospettato
+Caso "1" o-- "*" Indizio
+@enduml
